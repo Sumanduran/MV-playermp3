@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Music Playlist with Background</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-image: url('puso.png'); /* <-- Replace this with your image path */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      
+    }
+
+    .player {
+       backdrop-filter: blur(15px) brightness(1.1);
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      color: #fff;
+      
+      
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    p {
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    button {
+      margin: 5px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background-color: #3f51b5;
+      color: white;
+      transition: background-color 0.2s;
+    }
+
+    button:hover {
+      background-color: #303f9f;
+    }
+  
+  .bubbles img{
+width: 50px;
+animation: bubble 7s linear infinite;
+  box-shadow:7px 8px 9px transparent;
+
+}
+
+.bubbles{
+width: 100%;
+display: flex;
+align-items: center;
+justify-content: space-around;
+position: absolute;
+bottom: -70px;
+box-shadow:6px 7px 8px transparent;
+}
+
+@keyframes bubble{
+
+0% {
+
+transform: translateY(0);
+opacity: 0;
+
+}
+
+50%{
+opacity: 1;
+
+}
+
+70%{
+opacity: 1;
+
+}
+
+100%{
+transform: translateY(-80vh);
+opacity: 0;
+
+}
+
+}
+  
+  .bubbles img:nth-child(1) { 
+    animation-delay: 2s;
+    width:25px;
+    
+
+}
+
+bubbles img:nth-child(2) { animation-delay: 1s;
+
+}
+
+.bubbles img:nth-child(3) { 
+  animation-delay: 3s;
+  width:25px;
+
+}
+
+.bubbles img:nth-child(4) { animation-delay: 4.5s;
+
+}
+
+.bubbles img:nth-child(5) { animation-delay: 3s;
+
+}
+
+bubbles img:nth-child(6) { 
+  animation-delay: 6s;
+  width:20px;
+
+}
+
+.bubbles img:nth-child(7) { 
+  animation-delay: 7s;
+  width:35px;
+
+}
+  
+.bubbles img:nth-child(8) { 
+  animation-delay: 8s;
+  width:8px;
+}
+   
+.bubbles img:nth-child() { 
+  animation-delay: 9s;
+  width:8px;
+}
+   
+.bubbles img:nth-child(10) { 
+  animation-delay: 7s;
+  width:35px;
+}
+ 
+ .soap-bubble {
+width: 20px;
+cursor:pointer;
+
+}
+
+  </style>
+</head>
+<body>
+  
+<div class="player">
+  <h2>🎶 Music Player</h2>
+  <p id="nowPlaying">Now Playing: -</p>
+  <button onclick="togglePlay()">⏯ Play / Pause</button>
+  <button onclick="playNext()">⏭ Next</button>
+  <button onclick="toggleLoop()">🔁 Loop: Off</button>
+</div>
+  
+<div class="bubbles">
+
+<img src="soap-bubble.png">
+<img src="soap-bubble.png">
+<img src="soap-bubble.png">
+<img src="soap-bubble.png">
+<img src="soap-bubble.png">
+<img src="soap-bubble.png">
+<img src="soap-bubble.png">
+<img src="soap-bubble.png">
+<img src="soap-bubble.png">
+<img src="soap-bubble.png">
+    
+</div>
+   </div>
+    
+<script>
+  const playlist = [
+'Man.mp3',
+'8-letters-why-don-t-we-official-music-video-128-ytshorts.savetube.me.mp3',
+ 'boy.mp3',
+'kina-can-we-kiss-forever-lyrics-ft-adriana-proenza-128-ytshorts.savetube.me.mp3',
+'Pawis at tinta.mp3',
+'nakakamis.mp3',
+'“Golden”_Official_Lyric_Video___KPop_Demon_Hunters___Sony_Animation(48k).mp3', 
+'Dj doya.mp3',
+'Salamat Mama.mp3',
+ 'scar.mp3',
+ 'Legendary sa damgo.mp3',
+'DJ_River_Flows_in_You(48k).mp3',
+ 'haru.mp3',
+ 'dance.mp3'
+];
+
+  let currentTrack = 0;
+  let isLooping = false;
+
+  const audio = new Audio();
+  audio.src = playlist[currentTrack];
+  audio.volume = 0.7;
+  audio.autoplay = true;
+
+  const nowPlayingText = document.getElementById('nowPlaying');
+  const loopBtn = document.querySelector('button[onclick="toggleLoop()"]');
+
+  function updateNowPlaying() {
+    const filename = playlist[currentTrack].split('/').pop();
+    nowPlayingText.textContent = 'Now Playing: ' + filename;
+  }
+
+  function togglePlay() {
+    if (audio.paused) {
+      audio.play();
+    } else {
+      audio.pause();
+    }
+  }
+
+  function playNext() {
+    currentTrack = (currentTrack + 1) % playlist.length;
+    audio.src = playlist[currentTrack];
+    audio.play();
+    updateNowPlaying();
+  }
+
+  function toggleLoop() {
+    isLooping = !isLooping;
+    loopBtn.textContent = isLooping ? '🔁 Loop: On' : '🔁 Loop: Off';
+  }
+
+  // Auto-play next or loop
+  audio.addEventListener('ended', () => {
+    if (isLooping) {
+      audio.currentTime = 0;
+      audio.play();
+    } else {
+      playNext();
+    }
+  });
+
+  // Initialize display
+  updateNowPlaying();
+</script>
+
+</body>
+</html>
