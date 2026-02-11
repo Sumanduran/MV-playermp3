@@ -1,204 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Music Playlist with Background</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-image: url('puso.png'); /* <-- Replace this with your image path */
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      
-    }
+<meta charset="UTF-8">
+<title>Ultimate Music Player</title>
 
-    .player {
-       backdrop-filter: blur(15px) brightness(1.1);
-      background: rgba(255, 255, 255, 0.2);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-      text-align: center;
-      color: #fff;
-      
-      
-    }
-
-    h2 {
-      margin-top: 0;
-    }
-
-    p {
-      margin-bottom: 20px;
-      font-weight: bold;
-    }
-
-    button {
-      margin: 5px;
-      padding: 10px 20px;
-      font-size: 16px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      background-color: #3f51b5;
-      color: white;
-      transition: background-color 0.2s;
-    }
-
-    button:hover {
-      background-color: #303f9f;
-    }
-  
-  .bubbles img{
-width: 50px;
-animation: bubble 7s linear infinite;
-  box-shadow:7px 8px 9px transparent;
-
+<style>
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background-image:url('puso.png');
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  overflow:hidden;
+  transition:0.4s;
 }
 
+body.dark{
+  background:#111;
+}
+
+/* PLAYER */
+.player{
+  backdrop-filter: blur(15px);
+  background: rgba(255,255,255,0.2);
+  border:1px solid rgba(255,255,255,0.3);
+  padding:25px;
+  border-radius:15px;
+  box-shadow:0 4px 20px rgba(0,0,0,0.3);
+  text-align:center;
+  color:#fff;
+  width:350px;
+  max-height:85vh;
+  overflow-y:auto;
+}
+
+body.dark .player{
+  background:rgba(0,0,0,0.6);
+}
+
+/* LOGO */
+.logo{
+  width:130px;
+  height:130px;
+  border-radius:100px;
+  object-fit:cover;
+  box-shadow:0 0 15px black;
+  transition:0.3s;
+}
+
+.rotate{
+  animation:spin 5s linear infinite;
+}
+
+@keyframes spin{
+  from{transform:rotate(0deg);}
+  to{transform:rotate(360deg);}
+}
+
+h2{margin:10px 0;}
+
+button{
+  margin:5px;
+  padding:8px 15px;
+  font-size:14px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+  background-color:#3f51b5;
+  color:white;
+  transition:0.2s;
+}
+
+button:hover{
+  background-color:#303f9f;
+}
+
+/* PLAYLIST */
+.playlist{
+  margin-top:15px;
+  text-align:left;
+  max-height:200px;
+  overflow-y:auto;
+}
+
+.playlist div{
+  padding:6px;
+  cursor:pointer;
+  border-radius:5px;
+  font-size:13px;
+}
+
+.playlist div:hover{
+  background:rgba(255,255,255,0.2);
+}
+
+.activeSong{
+  background:#3f51b5 !important;
+}
+
+/* BUBBLES */
 .bubbles{
-width: 100%;
-display: flex;
-align-items: center;
-justify-content: space-around;
-position: absolute;
-bottom: -70px;
-box-shadow:6px 7px 8px transparent;
+  width:100%;
+  display:flex;
+  justify-content:space-around;
+  position:absolute;
+  bottom:-70px;
+}
+
+.bubbles img{
+  width:40px;
+  animation:bubble 7s linear infinite;
 }
 
 @keyframes bubble{
-
-0% {
-
-transform: translateY(0);
-opacity: 0;
-
+  0%{transform:translateY(0);opacity:0;}
+  50%{opacity:1;}
+  100%{transform:translateY(-80vh);opacity:0;}
 }
-
-50%{
-opacity: 1;
-
-}
-
-70%{
-opacity: 1;
-
-}
-
-100%{
-transform: translateY(-80vh);
-opacity: 0;
-
-}
-
-}
-  
-  .bubbles img:nth-child(1) { 
-    animation-delay: 2s;
-    width:25px;
-    
-
-}
-
-bubbles img:nth-child(2) { animation-delay: 1s;
-
-}
-
-.bubbles img:nth-child(3) { 
-  animation-delay: 3s;
-  width:25px;
-
-}
-
-.bubbles img:nth-child(4) { animation-delay: 4.5s;
-
-}
-
-.bubbles img:nth-child(5) { animation-delay: 3s;
-
-}
-
-bubbles img:nth-child(6) { 
-  animation-delay: 6s;
-  width:20px;
-
-}
-
-.bubbles img:nth-child(7) { 
-  animation-delay: 7s;
-  width:35px;
-
-}
-  
-.bubbles img:nth-child(8) { 
-  animation-delay: 8s;
-  width:8px;
-}
-   
-.bubbles img:nth-child() { 
-  animation-delay: 9s;
-  width:8px;
-}
-   
-.bubbles img:nth-child(10) { 
-  animation-delay: 7s;
-  width:35px;
-}
- 
- .soap-bubble {
-width: 20px;
-cursor:pointer;
-
-}
-
-  .logo{
-    width:150px;
-    height:150px;
-    border-radius:100px;
-    object-fit:cover;
-    border:none;
-    box-shadow:9px 8px 9px black;
-    
-    
-  }
-  </style>
+</style>
 </head>
+
 <body>
-  
+
 <div class="player">
-  <img class="logo" src="rani.jpg" alt="logo" >
+  <img class="logo" id="logo" src="rani.jpg">
   <h2>🎶 Music Player</h2>
   <p id="nowPlaying">Now Playing: -</p>
-  <button onclick="togglePlay()">⏯ Play / Pause</button>
-  <button onclick="playNext()">⏭ Next</button>
-  <button onclick="toggleLoop()">🔁 Loop: Off</button>
-</div>
-  
-<div class="bubbles">
 
-<img src="soap-bubble.png">
-<img src="soap-bubble.png">
-<img src="soap-bubble.png">
-<img src="soap-bubble.png">
-<img src="soap-bubble.png">
-<img src="soap-bubble.png">
-<img src="soap-bubble.png">
-<img src="soap-bubble.png">
-<img src="soap-bubble.png">
-<img src="soap-bubble.png">
-    
+  <button id="prevBtn">⏮</button>
+  <button id="playBtn">▶</button>
+  <button id="nextBtn">⏭</button>
+  <button id="loopBtn">🔁 Off</button>
+  <button id="darkBtn">🌙 Dark</button>
+
+  <div class="playlist" id="playlistUI"></div>
 </div>
-   </div>
-    
+
+<div class="bubbles">
+  <img src="soap-bubble.png">
+  <img src="soap-bubble.png">
+  <img src="soap-bubble.png">
+  <img src="soap-bubble.png">
+  <img src="soap-bubble.png">
+</div>
+
 <script>
-  const playlist = [
+const playlist = [
 'Nightcore_-_Angel_With_A_Shotgun(48k).mp3',
 'Dionela_-_Marilag__Lyrics_(48k).mp3',
 'Flict-G,_Bei_Wenceslao_-_Oh_Mahal,_Ikaw_Ang_Bituin_Ng_Buhay_Ko__Lyrics_(48k).mp3',
@@ -230,56 +182,91 @@ cursor:pointer;
 'DJ_River_Flows_in_You(48k).mp3',
  'haru.mp3',
  'dance.mp3'
-];
+  ];
 
-  let currentTrack = 0;
-  let isLooping = false;
+let currentTrack = 0;
+let isLooping = false;
 
-  const audio = new Audio();
-  audio.src = playlist[currentTrack];
-  audio.volume = 0.7;
-  audio.autoplay = true;
+const audio = new Audio();
+audio.volume = 0.7;
 
-  const nowPlayingText = document.getElementById('nowPlaying');
-  const loopBtn = document.querySelector('button[onclick="toggleLoop()"]');
+const playBtn = document.getElementById("playBtn");
+const nextBtn = document.getElementById("nextBtn");
+const prevBtn = document.getElementById("prevBtn");
+const loopBtn = document.getElementById("loopBtn");
+const darkBtn = document.getElementById("darkBtn");
+const nowPlaying = document.getElementById("nowPlaying");
+const playlistUI = document.getElementById("playlistUI");
+const logo = document.getElementById("logo");
 
-  function updateNowPlaying() {
-    const filename = playlist[currentTrack].split('/').pop();
-    nowPlayingText.textContent = 'Now Playing: ' + filename;
-  }
-
-  function togglePlay() {
-    if (audio.paused) {
-      audio.play();
-    } else {
-      audio.pause();
-    }
-  }
-
-  function playNext() {
-    currentTrack = (currentTrack + 1) % playlist.length;
-    audio.src = playlist[currentTrack];
-    audio.play();
-    updateNowPlaying();
-  }
-
-  function toggleLoop() {
-    isLooping = !isLooping;
-    loopBtn.textContent = isLooping ? '🔁 Loop: On' : '🔁 Loop: Off';
-  }
-
-  // Auto-play next or loop
-  audio.addEventListener('ended', () => {
-    if (isLooping) {
-      audio.currentTime = 0;
-      audio.play();
-    } else {
-      playNext();
-    }
+/* CREATE PLAYLIST UI */
+playlist.forEach((song,index)=>{
+  const div=document.createElement("div");
+  div.textContent=song;
+  div.addEventListener("click",()=>{
+    currentTrack=index;
+    playTrack();
   });
+  playlistUI.appendChild(div);
+});
 
-  // Initialize display
-  updateNowPlaying();
+function updateActiveSong(){
+  document.querySelectorAll(".playlist div").forEach((el,i)=>{
+    el.classList.toggle("activeSong",i===currentTrack);
+  });
+}
+
+function playTrack(){
+  audio.src=playlist[currentTrack];
+  audio.play();
+  nowPlaying.textContent="Now Playing: "+playlist[currentTrack];
+  playBtn.textContent="⏸";
+  logo.classList.add("rotate");
+  updateActiveSong();
+}
+
+playBtn.addEventListener("click",()=>{
+  if(audio.paused){
+    audio.play();
+    playBtn.textContent="⏸";
+    logo.classList.add("rotate");
+  }else{
+    audio.pause();
+    playBtn.textContent="▶";
+    logo.classList.remove("rotate");
+  }
+});
+
+nextBtn.addEventListener("click",()=>{
+  currentTrack=(currentTrack+1)%playlist.length;
+  playTrack();
+});
+
+prevBtn.addEventListener("click",()=>{
+  currentTrack=(currentTrack-1+playlist.length)%playlist.length;
+  playTrack();
+});
+
+loopBtn.addEventListener("click",()=>{
+  isLooping=!isLooping;
+  loopBtn.textContent=isLooping?"🔁 On":"🔁 Off";
+});
+
+darkBtn.addEventListener("click",()=>{
+  document.body.classList.toggle("dark");
+});
+
+audio.addEventListener("ended",()=>{
+  if(isLooping){
+    audio.currentTime=0;
+    audio.play();
+  }else{
+    currentTrack=(currentTrack+1)%playlist.length;
+    playTrack();
+  }
+});
+
+playTrack();
 </script>
 
 </body>
